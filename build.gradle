@@ -1,0 +1,33 @@
+plugins {
+  id 'java-library'
+  id 'jvm-test-suite'
+  id 'io.freefair.aspectj.post-compile-weaving' version '6.5.1'
+  id 'info.solidsoft.pitest' version '1.9.0'
+}
+
+sourceCompatibility = '17'
+
+pitest {
+  junit5PluginVersion = '1.0.0'
+  targetClasses = ["org.sanmibuh.*"]
+  targetTests = ["org.sanmibuh.*"]
+  outputFormats = ['XML', 'HTML']
+  threads = Runtime.runtime.availableProcessors()
+  timestampedReports = false
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.aspectj:aspectjrt:1.9.8'
+}
+
+testing {
+  suites {
+    test {
+      useJUnitJupiter('5.8.1')
+    }
+  }
+}
